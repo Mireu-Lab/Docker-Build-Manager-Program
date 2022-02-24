@@ -10,7 +10,7 @@ with open('Data/set.json','r') as docker_image_url:
 client = docker.from_env()
 
 def port():
-    port = random.randrange(150,59999)
+    port = random.randrange(30000,59999)
     return int(port)
 
 def build(time,name):
