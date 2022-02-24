@@ -1,0 +1,6 @@
+{
+    "docker image" : {
+        "ubuntu" : "limmireu/hosting:ubuntu",
+        "fedora" : "limmireu/hosting:fedora"
+    }
+}
