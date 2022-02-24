@@ -1,62 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hosting Program</title>
-</head>
-<body>
-    <div>
-        <form action="/{{url}}" method="post">
-            <div>
-                <p><input type="text" name="name" id="name"></p>
-                <p><input type="submit" value="submit"></p>
-            </div>
-            <h2>{{return_data}}</h2>
-        </form>
-    </div>
-    
-    <div>
-        <h3>{{name}}</h3>
-        <table border="1">
-            <th>리스트 이름</th>
-            <th>내용</th>
-            <tr>
-                <td>Docker ID</td>
-                <td>{{id}}</td>
-            </tr>
-            <tr>
-                <td>Port</td>
-                <td>{{port}}</td>
-            </tr>
-            <tr>
-                <td>Password</td>
-                <td>{{password}}</td>
-            </tr>
-            <tr>
-                <td>Status</td>
-                <td>{{status}}</td>
-            </tr>
-            <tr>
-                <td>Time</td>
-                <td>{{time}}</td>
-            </tr>
-            <tr>
-                <td>URL</td>
-                <td><a href="http://mireu-server.iptime.org:{{port}}/?token={{password}} :: /"> http://mireu-server.iptime.org:{{port}}/?token={{password}} :: /</a></td>
-            </tr>
-        </table>
-    </div>
+{% extends 'template.html' %}
 
-    <div>
-        <li><a href="/index">Main Pages</a></li>
-        <li><a href="/add">New Container Add</a></li>
-        <li><a href="/start">Container Start</a></li>
-        <li><a href="/stop">Container Stop</a></li>
-        <li><a href="/restart">Container Restart</a></li>
-        <li><a href="/remove">Container Remove</a></li>
-        <li><a href="/info">Container Info</a></li>
-    </div>
-</body>
-</html>
+{% block content %}
+<body>
+    <form action="/{{url}}" method="post">
+        <div>
+            <p>Name : <input type="text" name="name" id="name"></p>
+            {% if url == 'add'%}
+            <p>Ubuntu : <input type="radio" name="os" value="ubuntu" id="ubuntu"></p>
+            <p>Fedora : <input type="radio" name="os" value="fedora" id="fedora"></p>
+            {% endif %}
+            <p><input type="submit" value="submit"></p>
+        </div>
+        <h2>{{return_data}}</h2>
+    </form>
+{% endblock %}

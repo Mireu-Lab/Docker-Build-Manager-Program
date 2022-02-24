@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 import datetime, json, os
+from time import sleep
 from ..manage import *
 
 # 이메일 테이블 에 데이터 추가
 def add_data(name, dockerid, port, token, status, os):
-    filelocation = 'Data/Docker_Container/containers_{0}.json'.format(name)
+    filelocation = 'Data/Docker_Container/json/containers_{0}.json'.format(name)
     jsondata = {
         'name':name,
         'id':dockerid,
@@ -21,12 +22,19 @@ def add_data(name, dockerid, port, token, status, os):
 
 # 이메일 테이블에 데이터 업데이트
 def update(status, name):
-    filelocation = 'Data/Docker_Container/containers_{0}.json'.format(name)
+    filelocation = 'Data/Docker_Container/json/containers_{0}.json'.format(name)
 
     jsondata = open(filelocation, "r", encoding="utf-8")
     jsonlist = json.load(jsondata)
     
-    jsonlist["status"] = status
+    if status == "start":
+        sleep(1)
+        jsonlist["token"] = password_update(jsonlist['id'])
+        jsonlist["status"] = 'start'
+
+    elif status == "stop":
+        jsonlist["token"] = None
+        jsonlist["status"] = 'stop'
     
     jsonwrite = open(filelocation, "w", encoding="utf-8")
     json.dump(jsonlist, jsonwrite, indent="\t")
@@ -34,8 +42,8 @@ def update(status, name):
     return "Update Done"
 
 # 이메일 테이블에 데이터 삭제
-def remove(name):
-    filelocation = 'Data/Docker_Container/containers_{0}.json'.format(name)
+def json_delete(name):
+    filelocation = 'Data/Docker_Container/json/containers_{0}.json'.format(name)
     os.remove(filelocation)
 
     return 'Container delete data done'

@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from .hosting.json import *
+from hosting import hosting_json
 
 from fastapi import FastAPI
 import uvicorn
@@ -16,12 +16,12 @@ app=FastAPI()
 run_time = datetime.datetime.now(timezone('Asia/Seoul'))
 
 
-@app.get("/", tag=["test"])
+@app.get("/", tags=["test"])
 async def version():
     return {
-        "Run Time" : run_time, 
-        "DB Program" : "SQL", 
-        "Docker Image Url" : {
+        "run_time" : run_time, 
+        "db_program" : "JSON", 
+        "docker_image_Url" : {
             "ubuntu" : url["docker image"]["ubuntu"],
             "fedora" : url["docker image"]["fedora"]
         }
@@ -30,27 +30,27 @@ async def version():
 #사용자 도커 SQL 테이블 생성
 @app.post("/container/build", tags=["container"])
 async def build(name:str, os:bool):
-    pass
+    return hosting_json.build(name, os)
 
 @app.post("/container/status", tags=["container"])
 async def status(name:str):
-    pass
+    return hosting_json.info(name)
 
 @app.post("/container/stop", tags=["container"])
 async def stop(name:str):
-    pass
+    return hosting_json.stop(name)
 
 @app.post("/container/start", tags=["container"])
 async def start(name:str):
-    pass
+    return hosting_json.start(name)
 
 @app.post("/container/restart", tags=["container"])
 async def restart(name:str):
-    pass
+    return hosting_json.restart(name)
 
 @app.post("/container/delete", tags=["container"])
 async def delete(name:str):
-    pass
+    return hosting_json.delete(name)
 
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=65000)

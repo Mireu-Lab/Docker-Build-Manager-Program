@@ -15,7 +15,7 @@ def port():
 
 def build(time,name):
     ports = int(port())
-    name = "{0}_{1}".format(time,name)
+    name = "{0}_{1}".format(name, time)
     dockerbuild = client.containers.run(
         ports={'8888/tcp': ports},
         hostname="HOSTING",
@@ -27,5 +27,5 @@ def build(time,name):
     dockerbuild.start()
     sleep(1)
     data1 = str(dockerbuild.exec_run(cmd='jupyter server list'))
-    data = {'dockerid' : dockerbuild.short_id, 'port' : ports, "password" : data1}
+    data = {'dockerid' : dockerbuild.short_id, 'port' : ports, "password" : data1[89:137]}
     return data

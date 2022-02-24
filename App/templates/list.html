@@ -1,0 +1,39 @@
+{% extends 'template.html' %}
+
+{% block content %}
+    <div>
+        <p><b>{{name}}</b></p>
+        <table border="1">
+            <th>리스트 이름</th>
+            <th>내용</th>
+            <tr>
+                <td>Docker ID</td>
+                <td>{{id}}</td>
+            </tr>
+            <tr>
+                <td>Port</td>
+                <td>{{port}}</td>
+            </tr>
+            <tr>
+                <td>Os</td>
+                <td>{{os}}</td>
+            </tr>
+            <tr>
+                <td>Password</td>
+                <td>{{password}}</td>
+            </tr>
+            <tr>
+                <td>Status</td>
+                <td>{{status}}</td>
+            </tr>
+            <tr>
+                <td>Time</td>
+                <td>{{time}}</td>
+            </tr>
+            <tr>
+                <td>URL</td>
+                <td><a href="http://mireu-server.iptime.org:{{port}}/?token={{password}} :: /"> http://mireu-server.iptime.org:{{port}}/?token={{password}} :: /</a></td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}

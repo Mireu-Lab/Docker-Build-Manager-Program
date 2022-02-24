@@ -1,7 +1,7 @@
 import sqlite3
 
 usersqlset = """
-CREATE TABLE `dockerid` (
+CREATE TABLE `Docker_Container` (
   `id` integer not null primary key autoincrement,
   `name` text NOT NULL,
   `docker_ID` text NOT NULL,
@@ -13,7 +13,7 @@ CREATE TABLE `dockerid` (
 )
 """
 
-with sqlite3.connect("Data/Hosting_Data.sqlite3") as hosting:
+with sqlite3.connect("Data/Docker_Container/sql/Hosting_Data.sqlite3") as hosting:
     user_sql = hosting.cursor()
     hosting.executescript(usersqlset)
     hosting.commit()

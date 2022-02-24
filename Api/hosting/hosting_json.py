@@ -1,4 +1,5 @@
-from .build import ubuntu, fedora
+from .build.ubuntu import build as ubuntu_build
+from .build.fedora import build as fedora_build
 from .json.write import *
 from .json.read import *
 from .manage import *
@@ -9,14 +10,15 @@ import datetime
 #사용자 도커 컨테이너 빌드
 def build(name, os=bool):
     data = status_bool(name)
-    
+    times = datetime.datetime.now(timezone('Asia/Seoul')).strftime('%Y-%m-%d')
+
     if data == False:
         if os == True:
-            date = ubuntu.build(datetime.datetime.now(timezone('Asia/Seoul')),name)
+            date = ubuntu_build(times, name)
             return add_data(name, date["dockerid"], date["port"], date["password"], "start", "ubuntu")
 
         elif os == False:
-            date = fedora.build(datetime.datetime.now(timezone('Asia/Seoul')),name)
+            date = fedora_build(times, name)
             return add_data(name, date["dockerid"], date["port"], date["password"], "start", "fedora")
 
         else:
@@ -30,7 +32,17 @@ def start(name):
     data = status_bool(name)
     
     if data == True:
-        restart(dockerid(name))
+        container_start(dockerid(name))
+        return update("start", name)
+    elif data == False:
+        return 'No container_data'
+
+#사용자 도커 컨테이너 재시작
+def restart(name):
+    data = status_bool(name)
+    
+    if data == True:
+        container_restart(dockerid(name))
         return update("start", name)
     elif data == False:
         return 'No container_data'
@@ -40,18 +52,8 @@ def stop(name):
     data = status_bool(name)
     
     if data == True:
-        stop(dockerid(name))
+        container_stop(dockerid(name))
         return update("stop", name)
-    elif data == False:
-        return 'No container_data'
-
-#사용자 도커 컨테이너 재시작
-def restart(name):
-    data = status_bool(name)
-    
-    if data == True:
-        restart(dockerid(name))
-        return update("start", name)
     elif data == False:
         return 'No container_data'
 
@@ -60,18 +62,19 @@ def kill(name):
     data = status_bool(name)
     
     if data == True:
-        kill(dockerid(name))
+        container_kill(dockerid(name))
         return update("stop", name)
     elif data == False:
         return 'No container_data'
 
 #사용자 도커 컨테이너 삭제
-def remove(name):
+def delete(name):
     data = status_bool(name)
     
     if data == True:
-        remove(dockerid(name))
-        return remove(name)
+        container_delete(dockerid(name))
+        return json_delete(name)
+
     elif data == False:
         return 'container_data has already been deleted'
 
