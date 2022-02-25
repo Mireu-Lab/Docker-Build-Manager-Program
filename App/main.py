@@ -152,7 +152,7 @@ def container_info_web():
     elif request.method == "POST":
         name = request.form["name"]
         data = status(name)
-        if data['Data'] == dict:
+        if data['Data'] != 'No container_data':
             return render_template(
                 'list.html', 
                     name=data['Data']['name'], 
