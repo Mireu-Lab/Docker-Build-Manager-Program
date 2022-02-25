@@ -1,0 +1,11 @@
+[Unit]
+Description=Docker-Build-Manager-Program-API
+
+[Service]
+User=root
+WorkingDirectory=/home/mireu/Project/Docker-Build-Manager-Program/
+ExecStart=python3 Api/main_json.py
+Restart=always
+
+[Install]
+WantedBy=multi-user.target

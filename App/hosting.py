@@ -5,7 +5,7 @@ headers = {
     'accept': 'application/json',
 }
 
-seturl = "http://localhost:65000/"
+seturl = "http://192.168.0.2:65000/"
 
 def info():
     response = requests.get(seturl, headers=headers)
