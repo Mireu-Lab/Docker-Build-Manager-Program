@@ -10,7 +10,6 @@ def add_data(name, dockerid, port, token, status, os):
         'name':name,
         'id':dockerid,
         'port':port,
-        'token':token,
         'status':status,
         'os':os,
         'time':str(datetime.datetime.now())
@@ -27,14 +26,7 @@ def update(status, name):
     jsondata = open(filelocation, "r", encoding="utf-8")
     jsonlist = json.load(jsondata)
     
-    if status == "start":
-        sleep(1)
-        jsonlist["token"] = password_update(jsonlist['id'])
-        jsonlist["status"] = 'start'
-
-    elif status == "stop":
-        jsonlist["token"] = None
-        jsonlist["status"] = 'stop'
+    jsonlist["status"] = status
     
     jsonwrite = open(filelocation, "w", encoding="utf-8")
     json.dump(jsonlist, jsonwrite, indent="\t")

@@ -30,4 +30,4 @@ def container_start(dockerid):
 def password_update(dockerid):
     dockerdata = client.containers.get(dockerid)
     data1 = str(dockerdata.exec_run(cmd='jupyter server list'))
-    return data1[88:136]
+    return data1[88:137]

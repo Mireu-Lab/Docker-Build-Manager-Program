@@ -1,0 +1,10 @@
+version: '3.4'
+
+services:
+  web:
+    build: .
+    restart: always
+    container_name: Hosting-Web-Container
+    command: python3 App/main.py
+    ports:
+      - '7000:81'

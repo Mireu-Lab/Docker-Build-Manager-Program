@@ -1,22 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hosting Program - Main</title>
-</head>
-<body>
-    <p><b>Hosting API Run Time : {{run_time}}</b></p>
-    <p><b>Hosting API DB : {{db}}</b></p>
+{% extends 'template.html' %}
 
-    <div>
-        <li><a href="/add">New Container Add</a></li>
-        <li><a href="/start">Container Start</a></li>
-        <li><a href="/stop">Container Stop</a></li>
-        <li><a href="/kill">Container Kill</a></li>
-        <li><a href="/remove">Container Remove</a></li>
-        <li><a href="/info">Container Info</a></li>
-    </div>
-</body>
-</html>
+{% block content %}
+<p><b>Hosting API Run Time : {{run_time}}</b></p>
+<p><b>Hosting API DB : {{db}}</b></p>
+{% endblock %}

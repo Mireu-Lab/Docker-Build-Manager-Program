@@ -22,13 +22,13 @@ def container_add_web():
             data = status(name)
             return render_template(
                 'list.html', 
-                name=data['Data']['name'], 
-                id=data['Data']['id'], 
-                port=data['Data']['port'], 
-                os=data['Data']['os'],
+                name=data['Data']['info']['name'],
+                id=data['Data']['info']['id'], 
+                port=data['Data']['info']['port'], 
+                os=data['Data']['info']['os'],
                 password=data['Data']['token'],
-                status=data['Data']['status'], 
-                time=data['Data']['time']
+                status=data['Data']['info']['status'], 
+                time=data['Data']['info']['time']
             )
         elif data1['Data'] == "Have a container_data with that name":
             return render_template('index.html', url="add", return_data="해당 이름을 가진 컨테이너가 있습니다.")
@@ -45,13 +45,13 @@ def container_start_web():
             if data['Data']["status"] == "start":
                 return render_template(
                         'list.html', 
-                        name=data['Data']['name'], 
-                        id=data['Data']['id'], 
-                        port=data['Data']['port'], 
-                        os=data['Data']['os'],
+                        name=data['Data']['info']['name'],
+                        id=data['Data']['info']['id'], 
+                        port=data['Data']['info']['port'], 
+                        os=data['Data']['info']['os'],
                         password=data['Data']['token'],
-                        status=data['Data']['status'], 
-                        time=data['Data']['time']
+                        status=data['Data']['info']['status'], 
+                        time=data['Data']['info']['time']
                     )
             else:
                 data = start(name)
@@ -59,13 +59,13 @@ def container_start_web():
                     data = status(name)
                     return render_template(
                         'list.html', 
-                        name=data['Data']['name'], 
-                        id=data['Data']['id'], 
-                        port=data['Data']['port'], 
-                        os=data['Data']['os'],
+                        name=data['Data']['info']['name'],
+                        id=data['Data']['info']['id'], 
+                        port=data['Data']['info']['port'], 
+                        os=data['Data']['info']['os'],
                         password=data['Data']['token'],
-                        status=data['Data']['status'], 
-                        time=data['Data']['time']
+                        status=data['Data']['info']['status'], 
+                        time=data['Data']['info']['time']
                     )
                 elif data['Data'] == "No container_data":
                     return render_template('index.html', url="start", return_data="해당 이름을 가진 컨테이너가 없습니다.")
@@ -83,13 +83,13 @@ def container_stop_web():
             if data['Data']["status"] == "stop":
                 return render_template(
                         'list.html', 
-                        name=data['Data']['name'], 
-                        id=data['Data']['id'], 
-                        port=data['Data']['port'], 
-                        os=data['Data']['os'], 
+                        name=data['Data']['info']['name'],
+                        id=data['Data']['info']['id'], 
+                        port=data['Data']['info']['port'], 
+                        os=data['Data']['info']['os'],
                         password=data['Data']['token'],
-                        status=data['Data']['status'], 
-                        time=data['Data']['time']
+                        status=data['Data']['info']['status'], 
+                        time=data['Data']['info']['time']
                     )
             else:
                 data = stop(name)
@@ -97,13 +97,13 @@ def container_stop_web():
                     data = status(name)
                     return render_template(
                         'list.html', 
-                        name=data['Data']['name'], 
-                        id=data['Data']['id'], 
-                        port=data['Data']['port'], 
-                        os=data['Data']['os'], 
+                        name=data['Data']['info']['name'],
+                        id=data['Data']['info']['id'], 
+                        port=data['Data']['info']['port'], 
+                        os=data['Data']['info']['os'],
                         password=data['Data']['token'],
-                        status=data['Data']['status'], 
-                        time=data['Data']['time']
+                        status=data['Data']['info']['status'], 
+                        time=data['Data']['info']['time']
                     )
                 elif data['Data'] == "No container_data":
                     return render_template('index.html', url="start", return_data="해당 이름을 가진 컨테이너가 없습니다.")
@@ -122,13 +122,13 @@ def container_restart_web():
         
             return render_template(
                 'list.html', 
-                    name=data['Data']['name'], 
-                    id=data['Data']['id'], 
-                    port=data['Data']['port'], 
-                    os=data['Data']['os'], 
-                    password=data['Data']['token'],
-                    status=data['Data']['status'], 
-                    time=data['Data']['time']
+                name=data['Data']['info']['name'],
+                id=data['Data']['info']['id'], 
+                port=data['Data']['info']['port'], 
+                os=data['Data']['info']['os'],
+                password=data['Data']['token'],
+                status=data['Data']['info']['status'], 
+                time=data['Data']['info']['time']
                 )
         elif data['Data'] == "No container_data":
             return render_template('index.html', url="start", return_data="해당 이름을 가진 컨테이너가 없습니다.")
@@ -152,16 +152,17 @@ def container_info_web():
     elif request.method == "POST":
         name = request.form["name"]
         data = status(name)
+        print(data['Data'])
         if data['Data'] != 'No container_data':
             return render_template(
                 'list.html', 
-                    name=data['Data']['name'], 
-                    id=data['Data']['id'], 
-                    port=data['Data']['port'], 
-                    os=data['Data']['os'],
+                    name=data['Data']['info']['name'],
+                    id=data['Data']['info']['id'], 
+                    port=data['Data']['info']['port'], 
+                    os=data['Data']['info']['os'],
                     password=data['Data']['token'],
-                    status=data['Data']['status'], 
-                    time=data['Data']['time']
+                    status=data['Data']['info']['status'], 
+                    time=data['Data']['info']['time']
                 )
         elif data['Data'] == 'No container_data':
             return render_template('index.html', url="info", return_data="잘못된 이름")

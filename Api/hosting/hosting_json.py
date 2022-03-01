@@ -83,14 +83,12 @@ def info(name):
     data = status_bool(name)
     
     if data == True:
-        return status(name)
-    elif data == False:
-        return 'No container_data'
+        data = status(name)
+        if data['status'] == 'stop':
+            return { 'info' : data, 'token' : None}
+        elif data['status'] == 'start':
+            sleep(1)
+            return { 'info' : data, 'token' : password_update(dockerid(name))}
 
-def password(name):
-    data = status_bool(name)
-    
-    if data == True:
-        return update(dockerid(name))
     elif data == False:
         return 'No container_data'
