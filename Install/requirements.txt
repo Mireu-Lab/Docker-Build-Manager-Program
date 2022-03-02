@@ -2,4 +2,4 @@ docker
 fastapi
 uvicorn[standard]
 BaseModel
-flask
+pytz

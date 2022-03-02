@@ -2,5 +2,11 @@
     "docker image" : {
         "ubuntu" : "limmireu/hosting:ubuntu",
         "fedora" : "limmireu/hosting:fedora"
+    },
+    "container" : {
+        "build" : {
+            "min" : 59899,
+            "max" : 59999
+        }
     }
 }
