@@ -3,6 +3,7 @@ import sqlite3
 usersqlset = """
 CREATE TABLE `Docker_Container` (
   `id` integer not null primary key autoincrement,
+  `user_email` text NULL,
   `name` text NOT NULL,
   `docker_ID` text NOT NULL,
   `docker_Port` text NOT NULL,
@@ -13,10 +14,10 @@ CREATE TABLE `Docker_Container` (
 )
 """
 
-with sqlite3.connect("Data/Docker_Container/sql/Hosting_Data.sqlite3") as hosting:
-    user_sql = hosting.cursor()
-    hosting.executescript(usersqlset)
-    hosting.commit()
-    hosting.close()
+with sqlite3.connect("Data/Hosting_Data.sqlite3") as hosting:
+  user_sql = hosting.cursor()
+  hosting.executescript(usersqlset)
+  hosting.commit()
+  hosting.close()
 
 print('clear')

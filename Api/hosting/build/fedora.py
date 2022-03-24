@@ -4,18 +4,18 @@ import json
 import random
 from time import sleep
 
-with open('Data/set.json','r') as docker_image_url:
-    url = json.load(docker_image_url)
+docker_image_url=open('Data/set.json','r')
+url = json.load(docker_image_url)
 
 client = docker.from_env()
 
 def port():
-    port = random.randrange(url["container"]["min"],url["container"]["max"])
+    port = random.randrange(url["container"]["build"]["min"],url["container"]["build"]["max"])
     return int(port)
 
 def build(time,name):
     ports = int(port())
-    name = "{0}_{1}".format(name, time)
+    name = "{0}{1}".format(name, time)
     dockerbuild = client.containers.run(
         ports={'8888/tcp': ports},
         hostname="HOSTING",

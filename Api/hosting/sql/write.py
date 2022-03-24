@@ -2,7 +2,7 @@
 import datetime
 import sqlite3
 
-dockerdb = sqlite3.connect("Data/Docker_Container/sql/Hosting_Data.sqlite3")
+dockerdb = sqlite3.connect("Data/Hosting_Data.sqlite3")
 docker_db = dockerdb.cursor()
 
 # 데이터 추가
