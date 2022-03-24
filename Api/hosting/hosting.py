@@ -16,16 +16,20 @@ def build(name, os=bool):
     data = status_bool(name)
     times = datetime.datetime.now(timezone('Asia/Seoul')).strftime('%Y%m%d')
 
+    print(data)
+
     if data == False:
         if os == True:
             date = ubuntu_build(times, name)
             nginx_upload(date["dockerid"], date["port"])
-            return add_data(name, date["dockerid"], date["port"], date["password"], "start", "ubuntu")
+            add_data(name, date["dockerid"], date["port"], date["password"], "start", "ubuntu")
+            return "Container add done"
 
         elif os == False:
             date = fedora_build(times, name)
             nginx_upload(date["dockerid"], date["port"])
-            return add_data(name, date["dockerid"], date["port"], date["password"], "start", "fedora")
+            add_data(name, date["dockerid"], date["port"], date["password"], "start", "fedora")
+            return "Container add done"
 
         else:
             return "Unsupported service"
@@ -39,7 +43,9 @@ def start(name):
     
     if data == True:
         container_start(dockerid(name))
-        return update("start", name)
+        update("start", name)
+        return "Update Done"
+
     elif data == False:
         return 'No container_data'
 
@@ -49,7 +55,9 @@ def restart(name):
     
     if data == True:
         container_restart(dockerid(name))
-        return update("start", name)
+        update("start", name)
+        return "Update Done"
+
     elif data == False:
         return 'No container_data'
 
@@ -59,7 +67,8 @@ def stop(name):
     
     if data == True:
         container_stop(dockerid(name))
-        return update("stop", name)
+        update("stop", name)
+        return "Update Done"
     elif data == False:
         return 'No container_data'
 
@@ -69,7 +78,9 @@ def kill(name):
     
     if data == True:
         container_kill(dockerid(name))
-        return update("stop", name)
+        update("stop", name)
+        return "Update Done"
+
     elif data == False:
         return 'No container_data'
 
@@ -80,7 +91,8 @@ def delete(name):
     if data == True:
         container_delete(dockerid(name))
         nginx_remove(dockerid(name))
-        return remove(name)
+        remove(name)
+        return "Container delete data done"
 
     elif data == False:
         return 'container_data has already been deleted'
@@ -90,12 +102,12 @@ def info(name):
     data = status_bool(name)
     
     if data == True:
-        data = status(name)
-        if data['status'] == 'stop':
-            return { 'info' : data, 'token' : None}
-        elif data['status'] == 'start':
+        data1 = status(name)
+        if data1['status'] == 'stop':
+            return {'info' : data1, 'token' : None}
+        elif data1['status'] == 'start':
             sleep(1)
-            return { 'info' : data, 'token' : password_update(dockerid(name))}
+            return {'info' : data1, 'token' : password_update(dockerid(name))}
 
     elif data == False:
         return 'No container_data'

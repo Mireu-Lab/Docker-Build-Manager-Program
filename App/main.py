@@ -17,22 +17,24 @@ def container_add_web():
     elif request.method == "POST":
         name = request.form["name"]
         os = request.form["os"]
-        data1 = build(name, os)    
-        if data1['Data'] == "Container add done":        
-            data = status(name)
-            return render_template(
-                'list.html', 
-                name=data['Data']['info']['name'],
-                id=data['Data']['info']['id'], 
-                port=data['Data']['info']['port'], 
-                os=data['Data']['info']['os'],
-                password=data['Data']['token'],
-                status=data['Data']['info']['status'], 
-                time=data['Data']['info']['time']
-            )
-        elif data1['Data'] == "Have a container_data with that name":
-            return render_template('index.html', url="add", return_data="해당 이름을 가진 컨테이너가 있습니다.")
-
+        if os :
+            data1 = build(name, os)    
+            if data1['Data'] == "Container add done":        
+                data = status(name)
+                return render_template(
+                    'list.html', 
+                    name=data['Data']['info']['name'],
+                    id=data['Data']['info']['id'], 
+                    port=data['Data']['info']['port'], 
+                    os=data['Data']['info']['os'],
+                    password=data['Data']['token'],
+                    status=data['Data']['info']['status'], 
+                    time=data['Data']['info']['time']
+                )
+            elif data1['Data'] == "Have a container_data with that name":
+                return render_template('index.html', url="add", return_data="해당 이름을 가진 컨테이너가 있습니다.")
+        else:
+            return render_template('index.html', url="add", return_data="OS을 선택하지 않았습니다 OS을 선택 해주세요")
 
 @app.route("/start", methods=["GET","POST"])
 def container_start_web():

@@ -1,58 +1,70 @@
 import sqlite3
-
-dockerdb = sqlite3.connect("Data/Hosting_Data.sqlite3")
-docker_db = dockerdb.cursor()
+import json
 
 # 데이터 상태 확인
 def status(name):
-    sql = """SELECT * FROM Docker_Container WHERE Name={};""".format(name)
-
+    dockerdb = sqlite3.connect("Data/Hosting_Data.sqlite3")
+    docker_db = dockerdb.cursor()
+    
+    sql = f"SELECT name, docker_ID, docker_Port, os, status, time FROM Docker_Container WHERE name='{name}';"
+    
     docker_db.execute(sql)
+    result = docker_db.fetchall()
 
-    try:
-        result = docker_db.fetchall()
-        docker_db.close()
-        return result
+    docker_db.close()
+    dockerdb.close()
 
-    except:
-        return False
-
+    return {"name":result[0][0], "id":result[0][1], "port":result[0][2], "os":result[0][3], "status":result[0][4], "time":result[0][5]}
 
 # 도커 ID 데이터 추출
 def dockerid(name):
-    sql = """SELECT docker_ID FROM Docker_Container WHERE Name={};""".format(name)
-
+    dockerdb = sqlite3.connect("Data/Hosting_Data.sqlite3")
+    docker_db = dockerdb.cursor()
+    
+    sql = f"SELECT docker_ID FROM Docker_Container WHERE name='{name}';"
+    
     docker_db.execute(sql)
- 
+
     try:
         result = docker_db.fetchall()
         docker_db.close()
-        return result
+        dockerdb.close()
+
+        return result[0][0]
 
     except:
         return False
 
 # 전체 데이터 추출
 def info(name):
-    sql = """SELECT docker_ID, name, os FROM Docker_Container WHERE Name={};""".format(name)
+    dockerdb = sqlite3.connect("Data/Hosting_Data.sqlite3")
+    docker_db = dockerdb.cursor()
+    
+    sql = f"SELECT docker_ID, name, os FROM Docker_Container WHERE name='{name}';"
 
     docker_db.execute(sql)
- 
+
     try:
         result = docker_db.fetchall()
         docker_db.close()
+        dockerdb.close()
         return result
 
     except:
         return False
 
+#컨테이너 확인
 def status_bool(name): 
-    sql = """SELECT name FROM Docker_Container WHERE Name={};""".format(name)
-
-    try:
-        result = docker_db.fetchall()
-        docker_db.close()
-        return result
-
-    except:
+    dockerdb = sqlite3.connect("Data/Hosting_Data.sqlite3")
+    docker_db = dockerdb.cursor()
+    
+    sql = f"SELECT COUNT(*) cnt FROM Docker_Container WHERE name='{name}';"
+    
+    docker_db.execute(sql)
+    re = docker_db.fetchall()
+    docker_db.close()
+    dockerdb.close()
+    if re[0][0] == 1:
+        return True
+    else:
         return False

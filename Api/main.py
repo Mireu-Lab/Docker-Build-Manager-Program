@@ -18,8 +18,8 @@ run_time = datetime.datetime.now(timezone('Asia/Seoul'))
 @app.get("/", tags=["test"])
 async def version():
     return {
-        "Run Time" : run_time, 
-        "DB Program" : "SQL", 
+        "run_time" : run_time, 
+        "db_program" : "SQL", 
         "Docker Image Url" : {
             "Ubuntu" : url["docker image"]["ubuntu"],
             "Fedora" : url["docker image"]["fedora"]
