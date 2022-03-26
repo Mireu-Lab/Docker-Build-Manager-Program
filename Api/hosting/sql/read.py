@@ -6,7 +6,7 @@ def status(name):
     dockerdb = sqlite3.connect("Data/Hosting_Data.sqlite3")
     docker_db = dockerdb.cursor()
     
-    sql = f"SELECT name, docker_ID, docker_Port, os, status, time FROM Docker_Container WHERE name='{name}';"
+    sql = f"SELECT name, docker_ID, os, status, time FROM Docker_Containers WHERE name='{name}';"
     
     docker_db.execute(sql)
     result = docker_db.fetchall()
@@ -14,14 +14,14 @@ def status(name):
     docker_db.close()
     dockerdb.close()
 
-    return {"name":result[0][0], "id":result[0][1], "port":result[0][2], "os":result[0][3], "status":result[0][4], "time":result[0][5]}
+    return {"name":result[0][0], "id":result[0][1], "os":result[0][2], "status":result[0][3], "time":result[0][4]}
 
 # 도커 ID 데이터 추출
 def dockerid(name):
     dockerdb = sqlite3.connect("Data/Hosting_Data.sqlite3")
     docker_db = dockerdb.cursor()
     
-    sql = f"SELECT docker_ID FROM Docker_Container WHERE name='{name}';"
+    sql = f"SELECT docker_ID FROM Docker_Containers WHERE name='{name}';"
     
     docker_db.execute(sql)
 
@@ -40,7 +40,7 @@ def info(name):
     dockerdb = sqlite3.connect("Data/Hosting_Data.sqlite3")
     docker_db = dockerdb.cursor()
     
-    sql = f"SELECT docker_ID, name, os FROM Docker_Container WHERE name='{name}';"
+    sql = f"SELECT docker_ID, name, os FROM Docker_Containers WHERE name='{name}';"
 
     docker_db.execute(sql)
 
@@ -58,7 +58,7 @@ def status_bool(name):
     dockerdb = sqlite3.connect("Data/Hosting_Data.sqlite3")
     docker_db = dockerdb.cursor()
     
-    sql = f"SELECT COUNT(*) cnt FROM Docker_Container WHERE name='{name}';"
+    sql = f"SELECT COUNT(*) cnt FROM Docker_Containers WHERE name='{name}';"
     
     docker_db.execute(sql)
     re = docker_db.fetchall()

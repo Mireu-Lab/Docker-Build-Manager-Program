@@ -52,4 +52,4 @@ async def delete(name:str):
     return hosting.delete(name)
 
 if __name__ == "__main__":
-    uvicorn.run(app, host="0.0.0.0", port=65000)
+    uvicorn.run(app, host="0.0.0.0", port=url["API_Port"])

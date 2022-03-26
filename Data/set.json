@@ -1,12 +1,20 @@
 {
+    "Domain" : "mireu.xyz",
+    "Proxy_Pass" : true,
+    "Server_IP" : "192.168.0.2",
+    "API_Port" : 65000,
     "docker image" : {
         "ubuntu" : "limmireu/hosting:ubuntu",
         "fedora" : "limmireu/hosting:fedora"
     },
     "container" : {
         "build" : {
-            "min" : 59899,
+            "min" : 59799,
             "max" : 59999
+        },
+        "proxy" : {
+            "min" : 49799,
+            "max" : 49999
         }
     }
 }

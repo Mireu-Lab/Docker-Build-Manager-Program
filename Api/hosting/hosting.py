@@ -6,30 +6,46 @@ from .sql.read import *
 from .sql.write import *
 from .manage import *
 
-from time import sleep
 
 from pytz import timezone
 import datetime
 
+from time import sleep
+import os
+
 #사용자 도커 컨테이너 빌드
-def build(name, os=bool):
+def build(name, open_system=bool):
     data = status_bool(name)
     times = datetime.datetime.now(timezone('Asia/Seoul')).strftime('%Y%m%d')
 
     print(data)
 
     if data == False:
-        if os == True:
+        if open_system == True:
             date = ubuntu_build(times, name)
-            nginx_upload(date["dockerid"], date["port"])
-            add_data(name, date["dockerid"], date["port"], date["password"], "start", "ubuntu")
-            return "Container add done"
 
-        elif os == False:
+            if date == 409:
+                return "Have a container_data with that name"
+
+            else:
+                nginx_upload(date["dockerid"], date["docker_port"], date["web_port"])
+                add_data(name, date["dockerid"], "start", "fedora")
+                sleep(1)
+                os.system("sudo service nginx restart")
+                return "Container add done"
+
+        elif open_system == False:
             date = fedora_build(times, name)
-            nginx_upload(date["dockerid"], date["port"])
-            add_data(name, date["dockerid"], date["port"], date["password"], "start", "fedora")
-            return "Container add done"
+
+            if date == 409:
+                return "Have a container_data with that name"
+
+            else:
+                nginx_upload(date["dockerid"], date["docker_port"], date["web_port"])
+                add_data(name, date["dockerid"], "start", "fedora")
+                sleep(1)
+                os.system("sudo service nginx restart")
+                return "Container add done"
 
         else:
             return "Unsupported service"

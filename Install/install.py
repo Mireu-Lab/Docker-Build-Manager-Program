@@ -1,13 +1,11 @@
 import sqlite3
 
 usersqlset = """
-CREATE TABLE `Docker_Container` (
+CREATE TABLE `Docker_Containers` (
   `id` integer not null primary key autoincrement,
   `user_email` text NULL,
   `name` text NOT NULL,
   `docker_ID` text NOT NULL,
-  `docker_Port` text NOT NULL,
-  `token` text NOT NULL,
   `status` text NOT NULL,
   `os` text NOT NULL,
   `time` datetime NOT NULL
