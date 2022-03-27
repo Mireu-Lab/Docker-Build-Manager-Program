@@ -45,7 +45,15 @@ def container_start_web():
         data = status(name)
         if data['Data'] != 'No container_data':
             if data['Data']["info"]["status"] == "start":
-                return render_template("/info")
+                return render_template(
+                    'list.html', 
+                        name=data['Data']['info']['name'],
+                        id=data['Data']['info']['id'], 
+                        os=data['Data']['info']['os'],
+                        password=data['Data']['token'],
+                        status=data['Data']['info']['status'], 
+                        time=data['Data']['info']['time']
+                    )
             else:
                 data = start(name)
                 if data['Data'] == "Update Done":
@@ -86,7 +94,15 @@ def container_stop_web():
             else:
                 data = stop(name)
                 if data['Data'] == "Update Done":
-                    return render_template("/info")
+                    return render_template(
+                        'list.html', 
+                            name=data['Data']['info']['name'],
+                            id=data['Data']['info']['id'], 
+                            os=data['Data']['info']['os'],
+                            password=data['Data']['token'],
+                            status=data['Data']['info']['status'], 
+                            time=data['Data']['info']['time']
+                        )
                 elif data['Data'] == "No container_data":
                     return render_template('index.html', url="start", return_data="해당 이름을 가진 컨테이너가 없습니다.")
         else:

@@ -17,6 +17,8 @@ def proxy_ports():
     port = random.randrange(url["container"]["proxy"]["min"],url["container"]["proxy"]["max"])
     return int(port)
 
+global dockerbuild
+
 def build(time,name):
     main_port = int(main_ports())
     proxy_port = int(proxy_ports())
