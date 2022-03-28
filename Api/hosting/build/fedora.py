@@ -28,7 +28,7 @@ def build(time,name):
         dockerbuild = client.containers.run(
             ports={'8888/tcp': main_port, '80/tcp' : proxy_port},
             hostname="HOSTING",
-            image=url['docker image']['ubuntu'],
+            image=url['docker image']['fedora'],
             name=name,
             detach=True
         )
