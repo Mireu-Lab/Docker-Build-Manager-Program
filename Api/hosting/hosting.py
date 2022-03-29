@@ -29,7 +29,7 @@ def build(name, open_system=bool):
 
             else:
                 nginx_upload(date["dockerid"], date["docker_port"], date["web_port"])
-                add_data(name, date["dockerid"], "start", "fedora")
+                add_data(name, date["dockerid"], "start", "ubuntu")
                 sleep(1)
                 os.system("sudo service nginx restart")
                 return "Container add done"
