@@ -12,6 +12,8 @@ def upload(dockerid, main_port, proxy_port):
         ''      close;
     }}
 
+    client_max_body_size 5G;
+    
     server {{
         listen 80;
         server_name {dockerid}.{url["Domain"]};
