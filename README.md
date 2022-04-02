@@ -1,7 +1,5 @@
 # dply.app / Hosting Project 
 
-![DPLY 로고](/logo.png)
-
 1. 기본 프로그램 리스트
 
 - docker
