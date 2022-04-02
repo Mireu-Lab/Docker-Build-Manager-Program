@@ -1,4 +1,4 @@
-# dply.app / Hosting Project 
+# Hosting Project 
 
 1. 기본 프로그램 리스트
 
