@@ -1,6 +1,4 @@
-# dply.app / Hosting Project 
-
-![DPLY 로고](/logo.png)
+# Hosting Project 
 
 1. 기본 프로그램 리스트
 
