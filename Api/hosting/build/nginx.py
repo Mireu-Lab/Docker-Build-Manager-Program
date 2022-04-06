@@ -11,13 +11,13 @@ def upload(dockerid, main_port, proxy_port):
         default upgrade;
         ''      close;
     }}
-
-    client_max_body_size 5G;
     
     server {{
         listen 80;
         server_name {dockerid}.{url["Domain"]};
 
+        client_max_body_size 5G;
+        
         location / {{
             proxy_pass http://{url["Server_IP"]}:{proxy_port}/;
             
@@ -37,6 +37,8 @@ def upload(dockerid, main_port, proxy_port):
     server {{
         listen 80;
         server_name {dockerid}.host.{url["Domain"]};
+
+        client_max_body_size 5G;
 
         location / {{
             proxy_pass http://{url["Server_IP"]}:{main_port}/;
