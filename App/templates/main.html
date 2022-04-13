@@ -1,6 +1,12 @@
 {% extends 'template.html' %}
 
 {% block content %}
-<p><b>Hosting API Run Time : {{run_time}}</b></p>
-<p><b>Hosting API DB : {{db}}</b></p>
+    
+    {% if run_time %}
+        <p><b>Hosting API Run Time : {{run_time}}</b></p>
+        <p><b>Hosting API DB : {{db}}</b></p>
+    {% else %}
+        <p><b>ERROR : {{error}}</b></p>
+        <p><b>INFO : {{info}}</b></p>
+    {%endif%}
 {% endblock %}

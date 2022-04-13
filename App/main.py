@@ -8,7 +8,10 @@ app = Flask(__name__)
 def main_web():
     if request.method == "GET":
         data = info()
-        return render_template('main.html', run_time=data['Data']['run_time'], db=data['Data']['db_program'])
+        if data['Data'] == "응~ 서버 터졌어~":
+            return render_template('main.html', error=data['Code'], info=data['Data'])
+        else:
+            return render_template('main.html', run_time=data['Data']['run_time'], db=data['Data']['db_program'])
 
 @app.route("/add", methods=["GET","POST"])
 def container_add_web():
