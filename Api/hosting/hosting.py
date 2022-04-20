@@ -14,7 +14,7 @@ from time import sleep
 import os
 
 #사용자 도커 컨테이너 빌드
-def build(name, open_system=bool):
+def build(name, email, open_system=bool):
     data = status_bool(name)
     times = datetime.datetime.now(timezone('Asia/Seoul')).strftime('%Y%m%d')
 
@@ -29,7 +29,7 @@ def build(name, open_system=bool):
 
             else:
                 nginx_upload(date["dockerid"], date["docker_port"], date["web_port"])
-                add_data(name, date["dockerid"], "start", "ubuntu")
+                add_data(name, date["dockerid"], "start", "ubuntu", email)
                 sleep(1)
                 os.system("sudo service nginx restart")
                 return "Container add done"
@@ -42,7 +42,7 @@ def build(name, open_system=bool):
 
             else:
                 nginx_upload(date["dockerid"], date["docker_port"], date["web_port"])
-                add_data(name, date["dockerid"], "start", "fedora")
+                add_data(name, date["dockerid"], "start", "fedora", email)
                 sleep(1)
                 os.system("sudo service nginx restart")
                 return "Container add done"

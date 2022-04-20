@@ -28,8 +28,8 @@ async def version():
 
 #사용자 도커 SQL 테이블 생성
 @app.post("/container/build", tags=["container"])
-async def build(name:str, os:bool):
-    return hosting.build(name, os)
+async def build(name:str, os:bool, email:str=None):
+    return hosting.build(name, email, os)
 
 @app.post("/container/status", tags=["container"])
 async def status(name:str):

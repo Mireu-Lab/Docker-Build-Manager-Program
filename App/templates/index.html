@@ -2,13 +2,24 @@
 
 {% block content %}
 <body>
+    {% if url != 'status'%}
     <form action="/{{url}}" method="post">
+    {% else %}
+    <form action="/{{url}}" method="get">
+    {% endif %}
         <div>
-            <p>Name : <input type="text" name="name" id="name"></p>
-            {% if url == 'add'%}
-            <p>Ubuntu : <input type="radio" name="os" value="ubuntu" id="ubuntu"></p>
-            <p>Fedora : <input type="radio" name="os" value="fedora" id="fedora"></p>
-            {% endif %}
+            <div>
+                {% if url == 'add'%}
+                <p>Email : <input type="text" name="email" id="email"></p>
+                {% endif %}
+                <p>Name : <input type="text" name="name" id="name"></p>
+            </div>
+            <div>
+                {% if url == 'add'%}
+                <p>Ubuntu : <input type="radio" name="os" value="ubuntu" id="ubuntu"></p>
+                <p>Fedora : <input type="radio" name="os" value="fedora" id="fedora"></p>
+                {% endif %}
+            </div>
             <p><input type="submit" value="submit"></p>
         </div>
         <h2>{{return_data}}</h2>
