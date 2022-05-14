@@ -10,5 +10,9 @@
 }
 
 a {
-  text-decoration-line: none;
+	text-decoration: none;
+}
+
+body {
+	background-color: #DFEEF3;
 }

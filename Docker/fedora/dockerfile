@@ -1,8 +1,8 @@
 FROM fedora:latest
 
 RUN yum -y update && yum -y upgrade
-RUN yum install -y sudo vim unzip nano htop wget net-tools python3 python3-pip
-RUN yum install -y git
+RUN yum install -y sudo vim unzip nano htop wget net-tools python3 python3-pip git
+RUN yum install -y openssh-server
 
 RUN pip3 install jupyterlab 
 RUN jupyter lab --generate-config

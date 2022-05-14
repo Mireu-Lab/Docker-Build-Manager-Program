@@ -28,7 +28,7 @@ def build(name, email, open_system=bool):
                 return "Have a container_data with that name"
 
             else:
-                nginx_upload(date["dockerid"], date["docker_port"], date["web_port"])
+                nginx_upload(date["dockerid"], date["docker_port"], date["web_port"], date["ssh_port"])
                 add_data(name, date["dockerid"], "start", "ubuntu", email)
                 sleep(1)
                 os.system("sudo service nginx restart")
@@ -41,7 +41,7 @@ def build(name, email, open_system=bool):
                 return "Have a container_data with that name"
 
             else:
-                nginx_upload(date["dockerid"], date["docker_port"], date["web_port"])
+                nginx_upload(date["dockerid"], date["docker_port"], date["web_port"], date["ssh_port"])
                 add_data(name, date["dockerid"], "start", "fedora", email)
                 sleep(1)
                 os.system("sudo service nginx restart")

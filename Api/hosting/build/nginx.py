@@ -5,13 +5,13 @@ from time import sleep
 with open('Data/set.json','r') as docker_image_url:
     url = json.load(docker_image_url)
 
-def upload(dockerid, main_port, proxy_port):
+def upload(dockerid, main_port, proxy_port, ssh_port):
     conf = f"""
     map $http_upgrade $connection_upgrade {{
         default upgrade;
         ''      close;
     }}
-    
+
     server {{
         listen 80;
         server_name {dockerid}.{url["Domain"]};
@@ -19,7 +19,7 @@ def upload(dockerid, main_port, proxy_port):
         client_max_body_size 5G;
         
         location / {{
-            proxy_pass http://{url["Server_IP"]}:{proxy_port}/;
+            proxy_pass http://127.0.0.1:{proxy_port}/;
             
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header Host $host;
@@ -41,7 +41,7 @@ def upload(dockerid, main_port, proxy_port):
         client_max_body_size 5G;
 
         location / {{
-            proxy_pass http://{url["Server_IP"]}:{main_port}/;
+            proxy_pass http://127.0.0.1:{main_port}/;
 
             proxy_set_header X-Real-IP $remote_addr;
             proxy_set_header Host $host;

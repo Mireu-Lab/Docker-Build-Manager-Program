@@ -17,16 +17,21 @@ def proxy_ports():
     port = random.randrange(url["container"]["proxy"]["min"],url["container"]["proxy"]["max"])
     return int(port)
 
+def ssh_ports():
+    port = random.randrange(url["container"]["proxy"]["min"],url["container"]["proxy"]["max"])
+    return int(port)
+
 global dockerbuild
 
 def build(time,name):
     main_port = int(main_ports())
     proxy_port = int(proxy_ports())
+    ssh_port = int(ssh_ports())
     name = "{0}{1}".format(name, time)
 
     try:
         dockerbuild = client.containers.run(
-            ports={'8888/tcp': main_port, '80/tcp' : proxy_port},
+            ports={'8888/tcp': main_port, '80/tcp' : proxy_port, '22/tcp' : ssh_port},
             hostname="HOSTING",
             image=url['docker image']['fedora'],
             name=name,
@@ -35,7 +40,7 @@ def build(time,name):
         dockerbuild.start()
         sleep(1)
         data1 = str(dockerbuild.exec_run(cmd='jupyter server list'))
-        data = {'dockerid' : dockerbuild.short_id, 'docker_port' : main_port, "web_port" : proxy_port, "password" : data1[89:137]}
+        data = {'dockerid' : dockerbuild.short_id, 'docker_port' : main_port, "web_port" : proxy_port, "ssh_port" : ssh_port, "password" : data1[89:137]}
         return data
 
     except docker.errors.APIError as e:

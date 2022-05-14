@@ -36,7 +36,7 @@ def dockerid(name):
         return False
 
 # 전체 데이터 추출
-def info(name):
+def all_info(name):
     dockerdb = sqlite3.connect("Data/Hosting_Data.sqlite3")
     docker_db = dockerdb.cursor()
     
